@@ -1,5 +1,4 @@
 const { ObjectId } = require("mongodb");
-
 class ProductService {
     constructor(client) {
         this.Product = client.db().collection("products");
@@ -8,15 +7,16 @@ class ProductService {
     extractProductData(payload) {
         const product = {
             name: payload.name,
+            type: payload.type,
+            featured: payload.featured,
             image: payload.image,
             brand: payload.brand,
-            type: payload.type,
+            description: payload.description,
+            size: payload.size,
             price: payload.price,
             quantity: payload.quantity,
-            description: payload.description,
-            featured: payload.featured,
         };
-
+        // Remove undefined fields
         Object.keys(product).forEach(
             (key) => product[key] === undefined && delete product[key]
         );
@@ -27,10 +27,10 @@ class ProductService {
         const product = this.extractProductData(payload);
         const result = await this.Product.findOneAndUpdate(
             product,
-            { $set: { featured: product.featured === true } },
+            { $set: product },
             { returnDocument: "after", upsert: true }
         );
-        return result.value;    
+        return result.value;
     }
 
     async find(filter) {
@@ -68,10 +68,6 @@ class ProductService {
             _id: ObjectId.isValid(id) ? new ObjectId(id) : null,
         });
         return result.value;
-    }
-
-    async findFeatured() {
-        return await this.find({ featured: true });
     }
 
     async deleteAll() {

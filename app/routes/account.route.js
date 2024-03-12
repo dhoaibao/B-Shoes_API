@@ -1,16 +1,16 @@
 const express = require("express");
-const accounts = require("../controllers/account.controller");
+const account = require("../controllers/account.controller");
 
 const router = express.Router();
 
 router.route("/")
-    .get(accounts.findAll)
-    .post(accounts.create)
-    .delete(accounts.deleteAll);
+    .get(account.findAll)
+    .post(account.create)
+    .delete(account.deleteAll);
 
 router.route("/:id")
-    .get(accounts.findOne)
-    .put(accounts.update)
-    .delete(accounts.delete);
+    .get(account.findOne)
+    .put(account.update)
+    .delete(account.delete);
 
 module.exports = router;

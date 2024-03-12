@@ -1,16 +1,16 @@
 const express = require("express");
-const carts = require("../controllers/cart.controller");
+const cart = require("../controllers/cart.controller");
 
 const router = express.Router();
 
 router.route("/")
-    .get(carts.findAll)
-    .post(carts.create)
-    .delete(carts.deleteAll);
+    .get(cart.findAll)
+    .post(cart.create)
+    .delete(cart.deleteAll);
 
 router.route("/:id")
-    .get(carts.findOne)
-    .put(carts.update)
-    .delete(carts.delete);
+    .get(cart.findOne)
+    .put(cart.update)
+    .delete(cart.delete);
 
 module.exports = router;

@@ -3,9 +3,9 @@ const ApiError = require("../api-error");
 const MongoDB = require("../utils/mongodb.util");
 
 exports.create = async (req, res, next) => {
-    // if (!req.body.name) {
-    //     return next(new ApiError(400, "Name cannot be empty"));
-    // }
+    if (!req.body.name) {
+        return next(new ApiError(400, "Name can not be empty"));
+    }
 
     try {
         const productService = new ProductService(MongoDB.client);
@@ -31,7 +31,7 @@ exports.findAll = async (req, res, next) => {
         }
     } catch(error) {
         return next(
-            new ApiError(500, "An error occurred while retrieving products")
+            new ApiError(500, "An error occurred while retrieving product")
         );
     }
 
@@ -97,18 +97,6 @@ exports.deleteAll = async (req, res, next) => {
     } catch (error) {
         return next(
             new ApiError(500, "An error occurred while removing all products")
-        )
-    };
-};
-
-exports.findAllFeatured = async (req, res, next) => {
-    try {
-        const productService = new ProductService(MongoDB.client);
-        const document = await productService.findFeatured();
-        return res.send(document);
-    } catch (error) {
-        return next(
-            new ApiError(500, "An error occurred while retrieving featured products")
         )
     };
 };

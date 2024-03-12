@@ -3,9 +3,9 @@ const ApiError = require("../api-error");
 const MongoDB = require("../utils/mongodb.util");
 
 exports.create = async (req, res, next) => {
-    // if (!req.body.name) {
-    //     return next(new ApiError(400, "Name cannot be empty"));
-    // }
+    if (!req.body.name) {
+        return next(new ApiError(400, "Name can not be empty"));
+    }
 
     try {
         const accountService = new AccountService(MongoDB.client);
@@ -31,7 +31,7 @@ exports.findAll = async (req, res, next) => {
         }
     } catch(error) {
         return next(
-            new ApiError(500, "An error occurred while retrieving accounts")
+            new ApiError(500, "An error occurred while retrieving account")
         );
     }
 

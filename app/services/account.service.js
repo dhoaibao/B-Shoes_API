@@ -1,5 +1,4 @@
 const { ObjectId } = require("mongodb");
-
 class AccountService {
     constructor(client) {
         this.Account = client.db().collection("accounts");
@@ -15,21 +14,21 @@ class AccountService {
             username: payload.username,
             password: payload.password,
         };
-
+        // Remove undefined fields
         Object.keys(account).forEach(
             (key) => account[key] === undefined && delete account[key]
         );
         return account;
     }
-
+    
     async create(payload) {
         const account = this.extractAccountData(payload);
         const result = await this.Account.findOneAndUpdate(
             account,
-            { $set: { featured: account.featured === true } },
+            { $set: account },
             { returnDocument: "after", upsert: true }
         );
-        return result.value;    
+        return result.value;
     }
 
     async find(filter) {
@@ -71,7 +70,7 @@ class AccountService {
 
     async deleteAll() {
         const result = await this.Account.deleteMany({});
-        return result.deletedCount;
+        return result.deletedCount; 
     }
 }
 

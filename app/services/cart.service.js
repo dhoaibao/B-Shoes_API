@@ -1,5 +1,4 @@
 const { ObjectId } = require("mongodb");
-
 class CartService {
     constructor(client) {
         this.Cart = client.db().collection("carts");
@@ -8,9 +7,11 @@ class CartService {
     extractCartData(payload) {
         const cart = {
             userId: payload.userId,
-            productsId: payload.productId,
+            products: payload.products,
+            totalAmount: payload.totalAmount,
+            createdAt: new Date(),
         };
-
+        // Remove undefined fields
         Object.keys(cart).forEach(
             (key) => cart[key] === undefined && delete cart[key]
         );
@@ -21,10 +22,10 @@ class CartService {
         const cart = this.extractCartData(payload);
         const result = await this.Cart.findOneAndUpdate(
             cart,
-            { $set: { featured: cart.featured === true } },
+            { $set: cart },
             { returnDocument: "after", upsert: true }
         );
-        return result.value;    
+        return result.value;
     }
 
     async find(filter) {
@@ -39,7 +40,7 @@ class CartService {
     }
 
     async findById(id) {
-        return await this.Cart.findOne({
+        return await this.Contact.findOne({
             _id: ObjectId.isValid(id) ? new ObjectId(id) : null,
         });
     }
