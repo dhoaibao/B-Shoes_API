@@ -11,7 +11,6 @@ class AccountService {
             phone: payload.phone,
             email: payload.email,
             address: payload.address,
-            username: payload.username,
             password: payload.password,
         };
         // Remove undefined fields
