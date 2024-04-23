@@ -18,6 +18,21 @@ exports.create = async (req, res, next) => {
     }
 };
 
+exports.findPhone = async (req, res, next) => {
+    try {
+        const accountService = new AccountService(MongoDB.client);
+        const document = await accountService.findByPhone(req.params.phone);
+        if (document.length == 0) {
+            return next(new ApiError(404, "Contact not found"));
+        }
+        return res.send(document);
+    } catch (error) {
+        return next(
+            new ApiError(500, `Error retrieving contact with phone ${req.params.phone}`)
+        )
+    };
+};
+
 exports.findAll = async (req, res, next) => {
     let document = [];
 

@@ -13,4 +13,7 @@ router.route("/:id")
     .put(account.update)
     .delete(account.delete);
 
+router.route("/phone/:phone")
+    .get(account.findPhone);
+
 module.exports = router;
