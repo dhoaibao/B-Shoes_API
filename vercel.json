@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "npm server.js",
+  "buildCommand": "node server.js",
   "routes": [
     {
       "src": "/(.*)",
