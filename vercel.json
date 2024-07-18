@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "bun run build",
+  "buildCommand": "bun",
   "routes": [
     {
       "src": "/(.*)",
