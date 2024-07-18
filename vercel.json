@@ -1,8 +1,6 @@
 {
   "version": 2,
-  {
-    "buildCommand": "bun server.js"
-  },
+  "buildCommand": "npm server.js",
   "routes": [
     {
       "src": "/(.*)",
