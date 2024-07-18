@@ -1,17 +1,17 @@
 # Use the official Bun.js image
-FROM oven/bun
+FROM oven/bun:latest
 
 # Set the working directory
-WORKDIR /
+WORKDIR /app
 
-# Copy the current directory contents into the container at /app
+# Copy the application files
 COPY . .
 
 # Install dependencies
 RUN bun install
 
-# Make port 3000 available to the world outside this container
+# Expose the port (adjust the port number if necessary)
 EXPOSE 3000
 
-# Run server.js using Bun.js
+# Command to run the application
 CMD ["bun", "server.js"]

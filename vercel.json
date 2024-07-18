@@ -2,17 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "server.js",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
+      "src": "Dockerfile",
+      "use": "@vercel/docker"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "dist/$1"
+      "dest": "/"
     }
   ]
 }
